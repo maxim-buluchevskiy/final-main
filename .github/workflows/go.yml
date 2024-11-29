@@ -6,10 +6,10 @@ name: Go
 on:
   push:
     branches: [ "main" ]
+    tags:
+    - "*"
   pull_request:
     branches: [ "main" ]
-  tags:
-    - "*"
 
 jobs:
   # Первая job: Тестирование
@@ -48,5 +48,5 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/final-main:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/final-main:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/final-main:${{ github.ref_name }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/final-main:${{ github.ref_name }}
